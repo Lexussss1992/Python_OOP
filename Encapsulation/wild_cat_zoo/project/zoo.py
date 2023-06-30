@@ -2,11 +2,11 @@ from typing import List
 
 
 class Zoo:
-    def __init__(self, name: str, budget: int, animal_capacity: int, worker_capacity: int):
+    def __init__(self, name: str, budget: int, animal_capacity: int, workers_capacity: int):
         self.name = name
         self.__budget = budget
         self.__animal_capacity = animal_capacity
-        self.__worker_capacity = worker_capacity
+        self.__workers_capacity = workers_capacity
         self.animals: List = []
         self.workers: List = []
 
@@ -23,7 +23,7 @@ class Zoo:
         return "Not enough space for animal"
 
     def hire_worker(self, worker):
-        if len(self.workers) < self.__worker_capacity:
+        if len(self.workers) < self.__workers_capacity:
             self.workers.append(worker)
             return f"{worker.name} the {worker.__class__.__name__} hired successfully"
 
@@ -74,13 +74,13 @@ class Zoo:
         cheetahs = [c for c in self.animals if c.__class__.__name__ == 'Cheetah']
         tigers = [t for t in self.animals if t.__class__.__name__ == 'Tiger']
 
-        return f"You have {len(self.animals)} animals \n" \
+        return f"You have {len(self.animals)} animals\n" \
                f"----- {len(lions)} Lions:\n" \
                f"{f'{nl}'.join(i.__repr__() for i in lions)}\n" \
                f"----- {len(tigers)} Tigers:\n" \
                f"{f'{nl}'.join(i.__repr__() for i in tigers)}\n" \
                f"----- {len(cheetahs)} Cheetahs:\n" \
-               f"{f'{nl}'.join(i.__repr__() for i in cheetahs)}\n"
+               f"{f'{nl}'.join(i.__repr__() for i in cheetahs)}"
 
     def workers_status(self):
         nl = '\n'
@@ -88,13 +88,13 @@ class Zoo:
         caretakers = [c for c in self.workers if c.__class__.__name__ == 'Caretaker']
         vets = [t for t in self.workers if t.__class__.__name__ == 'Vet']
 
-        return f"You have {len(self.workers)} workers \n" \
+        return f"You have {len(self.workers)} workers\n" \
                f"----- {len(keepers)} Keepers:\n" \
                f"{f'{nl}'.join(i.__repr__() for i in keepers)}\n" \
                f"----- {len(caretakers)} Caretakers:\n" \
                f"{f'{nl}'.join(i.__repr__() for i in caretakers)}\n" \
                f"----- {len(vets)} Vets:\n" \
-               f"{f'{nl}'.join(i.__repr__() for i in vets)}\n"
+               f"{f'{nl}'.join(i.__repr__() for i in vets)}"
 
 
 
