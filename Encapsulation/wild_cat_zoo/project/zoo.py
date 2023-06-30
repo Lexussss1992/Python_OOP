@@ -63,7 +63,7 @@ class Zoo:
 
             return f"You tended all the animals. They are happy. Budget left: {self.__budget}"
 
-        return f"You tended all the animals. They are happy. Budget left: {self.__budget}"
+        return f"You have no budget to tend the animals. They are unhappy."
 
     def profit(self, amount):
         self.__budget += amount
