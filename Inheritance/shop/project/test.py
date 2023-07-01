@@ -8,13 +8,13 @@ from project.product_repository import ProductRepository
 
 class Tests(unittest.TestCase):
     def setUp(self):
-        self.product = Product('product', 150)
+        self.product = Product('project', 150)
         self.drink = Drink('drink')
         self.food = Food('food')
         self.repo = ProductRepository()
 
     def test_init_of_product(self):
-        self.assertEqual(self.product.name, 'product')
+        self.assertEqual(self.product.name, 'project')
         self.assertEqual(self.product.quantity, 150)
 
     def test_decrease_product(self):
