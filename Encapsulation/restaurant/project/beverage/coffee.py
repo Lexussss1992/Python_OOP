@@ -5,10 +5,10 @@ class Coffee(HotBeverage):
     MILLILITERS = 50
     PRICE = 3.50
 
-    def __init__(self, name: str, price: float, milliliters: float, caffeine):
-        super().__init__(name, price, milliliters)
+    def __init__(self, name: str,  caffeine: float):
+        super().__init__(name, self.PRICE, self.MILLILITERS)
         self.__caffeine: float = caffeine
 
     @property
-    def attribute_caffeine(self):
+    def caffeine(self):
         return self.__caffeine
