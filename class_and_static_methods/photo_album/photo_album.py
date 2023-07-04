@@ -22,7 +22,7 @@ class PhotoAlbum:
         res = ['-' * 11]
 
         for page in self.photos:
-            res.append(('[] ' * len(page)).rstrip())
+            res.append(('[] ' * len(page)))
             res.append('-' * 11)
 
         return "\n".join(res)
