@@ -1,9 +1,5 @@
-from project.customer import Customer
-from project.equipment import Equipment
-
-
 class ExercisePlan:
-    ID = 1
+    id = 1
 
     def __init__(self, trainer_id: int, equipment_id: int, duration: int):
         self.trainer_id = trainer_id
@@ -17,8 +13,11 @@ class ExercisePlan:
 
     @staticmethod
     def get_next_id():
-        ExercisePlan.ID += 1
-        return ExercisePlan.ID
+        next_id = 1
+        if ExercisePlan.id == 1:
+            return next_id
+        next_id = ExercisePlan.id + 1
+        return next_id
 
     def __repr__(self):
-        return f'Plan <{ExercisePlan.ID}> with duration {self.duration} minutes'
+        return f'Plan <{ExercisePlan.id}> with duration {self.duration} minutes'
