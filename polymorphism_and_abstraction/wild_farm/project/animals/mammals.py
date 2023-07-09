@@ -11,8 +11,9 @@ class Mouse(Mammal):
         return "Squeak"
 
     def feed(self, food: Food):
-        if Food.__name__ == 'Vegetable' or Food.__name__ == 'Fruit':
+        if food.__class__.__name__ == 'Vegetable' or food.__class__.__name__ == 'Fruit':
             self.weight += food.quantity * 0.10
+            self.food_eaten += food.quantity
         return f'{self.name} does not eat {Food.__name__}!'
 
 
@@ -22,8 +23,9 @@ class Dog(Mammal):
         return "Woof"
 
     def feed(self, food: Food):
-        if Food.__name__ == 'Meat':
+        if food.__class__.__name__ == 'Meat':
             self.weight += food.quantity * 0.40
+            self.food_eaten += food.quantity
         return f'{self.name} does not eat {Food.__name__}!'
 
 
@@ -33,8 +35,9 @@ class Cat(Mammal):
         return "Meow"
 
     def feed(self, food: Food):
-        if Food.__name__ == 'Vegetable' or Food.__name__ == 'Meat':
+        if food.__class__.__name__ == 'Vegetable' or food.__class__.__name__ == 'Meat':
             self.weight += food.quantity * 0.30
+            self.food_eaten += food.quantity
         return f'{self.name} does not eat {Food.__name__}!'
 
 
@@ -44,6 +47,7 @@ class Tiger(Mammal):
         return "ROAR!!!"
 
     def feed(self, food: Food):
-        if Food.__name__ == 'Meat':
+        if food.__class__.__name__ == 'Meat':
             self.weight += food.quantity * 1
+            self.food_eaten += food.quantity
         return f'{self.name} does not eat {Food.__name__}!'
