@@ -6,8 +6,7 @@ class Owl(Bird):
     def __init__(self, name: str, weight: float, wing_size: float):
         super().__init__(name, weight, wing_size)
 
-    @staticmethod
-    def make_sound():
+    def make_sound(self):
         return "Hoot Hoot"
 
     def feed(self, food: Food):
@@ -21,8 +20,7 @@ class Hen(Bird):
     def __init__(self, name: str, weight: float, wing_size: float):
         super().__init__(name, weight, wing_size)
 
-    @staticmethod
-    def make_sound():
+    def make_sound(self):
         return "Cluck"
 
     def feed(self, food: Food):
