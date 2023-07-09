@@ -2,6 +2,10 @@ from abc import ABC, abstractmethod
 
 
 class Vehicle(ABC):
+    def __init__(self, fuel_quantity, fuel_consumption):
+        self.fuel_quantity = fuel_quantity
+        self.fuel_consumption = fuel_consumption
+
     @abstractmethod
     def drive(self, distance):
         pass
@@ -12,12 +16,8 @@ class Vehicle(ABC):
 
 
 class Car(Vehicle):
-    def __init__(self, fuel_quantity, fuel_consumption):
-        self.fuel_quantity = fuel_quantity
-        self.fuel_consumption = fuel_consumption + 0.9
-
     def drive(self, distance):
-        fuel_needed = distance * self.fuel_consumption
+        fuel_needed = distance * (self.fuel_consumption + 0.9)
         if fuel_needed <= self.fuel_quantity:
             self.fuel_quantity -= fuel_needed
 
@@ -26,12 +26,8 @@ class Car(Vehicle):
 
 
 class Truck(Vehicle):
-    def __init__(self, fuel_quantity, fuel_consumption):
-        self.fuel_quantity = fuel_quantity
-        self.fuel_consumption = fuel_consumption + 1.6
-
     def drive(self, distance):
-        fuel_needed = distance * self.fuel_consumption
+        fuel_needed = distance * (self.fuel_consumption + 1.6)
         if fuel_needed <= self.fuel_quantity:
             self.fuel_quantity -= fuel_needed
 
