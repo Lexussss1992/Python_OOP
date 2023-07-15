@@ -65,8 +65,9 @@ class ManagingApp:
         if route.is_locked:
             return f'Route {route_id} is locked! This trip is not allowed.'
 
+        vehicle.drive(route.length)
         if is_accident_happened:
-            vehicle.is_damaged = True
+            vehicle.change_status()
             user.decrease_rating()
         else:
             user.increase_rating()
@@ -76,44 +77,23 @@ class ManagingApp:
         else:
             return f'{vehicle.brand} {vehicle.model} License plate: {license_plate_number} Battery: {vehicle.battery_level}% Status: OK'
 
-app = ManagingApp()
+    def repair_vehicles(self, count: int):
+        damaged_vehicles = [v for v in self.vehicles if v.is_damaged is True]
+        damaged_vehicles_sorted = sorted(damaged_vehicles, key=lambda x: x.model)
 
-print(app.register_user( 'Tisha', 'Reenie', '7246506' ))
+        if len(damaged_vehicles) == 0:
+            return f'{len(damaged_vehicles_sorted)} vehicles were successfully repaired!'
 
-print(app.register_user( 'Bernard', 'Remy', 'CDYHVSR68661'))
+        for v in range(len(damaged_vehicles_sorted)):
+            if v <= count:
+                damaged_vehicles_sorted[v].is_damaged = False
+                damaged_vehicles_sorted[v].battery_level = 100
+            return f'{len(damaged_vehicles_sorted)} vehicles were successfully repaired!'
 
-print(app.register_user( 'Mack', 'Cindi', '7246506'))
+    def users_report(self):
+        users = [u for u in self.users]
+        sorted_users = sorted(users, key=lambda x: x.rating, reverse=True)
+        new_line = '\n'
 
-print(app.upload_vehicle('PassengerCar', 'Chevrolet', 'Volt', 'CWP8032'))
-
-print(app.upload_vehicle( 'PassengerCar', 'Volkswagen', 'e-Up!', 'COUN199728'))
-
-print(app.upload_vehicle('PassengerCar', 'Mercedes-Benz', 'EQS', '5UNM315'))
-
-print(app.upload_vehicle('CargoVan', 'Ford', 'e-Transit', '726QOA'))
-
-print(app.upload_vehicle('CargoVan', 'BrightDrop', 'Zevo400', 'SC39690'))
-
-print(app.upload_vehicle('EcoTruck', 'Mercedes-Benz', 'eActros', 'SC39690'))
-
-print(app.upload_vehicle('PassengerCar', 'Tesla', 'CyberTruck', '726QOA'))
-
-print(app.allow_route('SOF', 'PLD', 144))
-
-print(app.allow_route('BUR', 'VAR', 87))
-
-print(app.allow_route('BUR', 'VAR', 87))
-
-print(app.allow_route('SOF', 'PLD', 184))
-
-print(app.allow_route('BUR', 'VAR', 86.999))
-
-print(app.make_trip('CDYHVSR68661', '5UNM315', 3, False))
-
-print(app.make_trip('7246506', 'CWP8032', 1, True))
-
-print(app.make_trip('7246506', 'COUN199728', 1, False))
-
-print(app.make_trip('CDYHVSR68661', 'CWP8032', 3, False))
-
-print(app.make_trip('CDYHVSR68661', '5UNM315', 2, False))
+        return f'*** E-Drive-Rent ***\n' \
+               f'{f"{new_line}".join([u.__str__() for u in sorted_users])}'
