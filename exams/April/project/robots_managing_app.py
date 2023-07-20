@@ -51,6 +51,7 @@ class RobotsManagingApp:
         if not ((robot.__class__.__name__ == 'MaleRobot' and service.__class__.__name__ == 'MainService') or (robot.__class__.__name__ == 'FemaleRobot' and service.__class__.__name__ == 'SecondaryService')):
             return 'Unsuitable service.'
 
+        self.robots.remove(robot)
         service.robots.append(robot)
         return f'Successfully added {robot_name} to {service_name}.'
 
@@ -69,6 +70,18 @@ class RobotsManagingApp:
         [r.eating() for r in service.robots]
         return f"Robots fed: {len(service.robots)}."
 
+    def service_price(self, service_name: str):
+        service = [s for s in self.services if s.name == service_name][0]
+        total_price = sum([r.price for r in service.robots])
+
+        return f'The value of service {service_name} is {total_price}.'
+
+    def __str__(self):
+        for s in self.services:
+            res = []
+            res.append(s)
+        return '\n'.join(i.details() for i in res)
+
 main_app = RobotsManagingApp()
 print(main_app.add_service('SecondaryService', 'ServiceRobotsWorld'))
 print(main_app.add_service('MainService', 'ServiceTechnicalsWorld'))
@@ -78,3 +91,6 @@ print(main_app.add_robot_to_service('Scrap', 'ServiceRobotsWorld'))
 print(main_app.add_robot_to_service('Sparkle', 'ServiceRobotsWorld'))
 print(main_app.feed_all_robots_from_service('ServiceRobotsWorld'))
 print(main_app.feed_all_robots_from_service('ServiceTechnicalsWorld'))
+print(main_app.service_price('ServiceRobotsWorld'))
+print(main_app.service_price('ServiceTechnicalsWorld'))
+print(str(main_app))

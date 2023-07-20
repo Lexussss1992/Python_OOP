@@ -33,8 +33,10 @@ class BaseRobot(ABC):
 
     @property
     def price(self):
-         if self._price <= 0:
-             raise ValueError('Robot price cannot be less than or equal to 0.0!')
+        if self._price <= 0:
+            raise ValueError('Robot price cannot be less than or equal to 0.0!')
+        else:
+            return self._price
 
     @price.setter
     def price(self, value):
