@@ -51,9 +51,23 @@ class RobotsManagingApp:
         if not ((robot.__class__.__name__ == 'MaleRobot' and service.__class__.__name__ == 'MainService') or (robot.__class__.__name__ == 'FemaleRobot' and service.__class__.__name__ == 'SecondaryService')):
             return 'Unsuitable service.'
 
-        self.services.append(robot)
+        service.robots.append(robot)
         return f'Successfully added {robot_name} to {service_name}.'
 
+    def remove_robot_from_service(self, robot_name: str, service_name: str):
+        robot = [r for r in self.services if r.name == robot_name][0]
+
+        if not robot:
+            return 'No such robot in this service!'
+
+        self.services.remove(robot)
+        self.robots.append(robot)
+        return f'Successfully removed {robot_name} from {service_name}.'
+
+    def feed_all_robots_from_service(self, service_name: str):
+        service = [s for s in self.services if s.name == service_name][0]
+        [r.eating() for r in service.robots]
+        return f"Robots fed: {len(service.robots)}."
 
 main_app = RobotsManagingApp()
 print(main_app.add_service('SecondaryService', 'ServiceRobotsWorld'))
@@ -62,3 +76,5 @@ print(main_app.add_robot('FemaleRobot', 'Scrap', 'HouseholdRobots', 321.26))
 print(main_app.add_robot('FemaleRobot', 'Sparkle', 'FunnyRobots', 211.11))
 print(main_app.add_robot_to_service('Scrap', 'ServiceRobotsWorld'))
 print(main_app.add_robot_to_service('Sparkle', 'ServiceRobotsWorld'))
+print(main_app.feed_all_robots_from_service('ServiceRobotsWorld'))
+print(main_app.feed_all_robots_from_service('ServiceTechnicalsWorld'))
