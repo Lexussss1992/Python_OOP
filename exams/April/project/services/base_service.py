@@ -10,23 +10,25 @@ class BaseService(ABC):
 
     @property
     def name(self):
-        if self.__name == '' or self.__name.isspace():
+        if self._name == '' or self._name.isspace():
             raise ValueError('Service name cannot be empty!')
         else:
-            return self.__name
+            return self._name
 
     @name.setter
     def name(self, value):
-        self.__name = value
+        self._name = value
 
     @property
     def capacity(self):
-        if self.__capacity <= 0:
+        if self._capacity <= 0:
             raise ValueError('Service capacity cannot be less than or equal to 0!')
+        else:
+            return self._capacity
 
     @capacity.setter
     def capacity(self, value):
-        self.__capacity = value
+        self._capacity = value
 
     @staticmethod
     @abstractmethod
