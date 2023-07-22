@@ -8,7 +8,8 @@ class MainService(BaseService):
     def details(self):
 
         if len(self.robots) > 0:
-            return f"{self.name} Main Service:" \
+            return f"{self.name} Main Service:\n" \
                    f"Robots: {' '.join(r.name for r in self.robots)}"
         else:
-            return f"{self.name} Main Service:  Robots: none"
+            return f"{self.name} Main Service:\n" \
+                   f"Robots: none"

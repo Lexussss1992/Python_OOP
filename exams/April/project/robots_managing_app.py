@@ -56,12 +56,14 @@ class RobotsManagingApp:
         return f'Successfully added {robot_name} to {service_name}.'
 
     def remove_robot_from_service(self, robot_name: str, service_name: str):
-        robot = [r for r in self.services if r.name == robot_name][0]
+        service = [s for s in self.services if s.name == service_name][0]
+        robot = [r for r in service.robots if r.name == robot_name]
 
         if not robot:
-            return 'No such robot in this service!'
+            raise Exception('No such robot in this service!')
 
-        self.services.remove(robot)
+        robot_obj = robot[0]
+        service.robots.remove(robot_obj)
         self.robots.append(robot)
         return f'Successfully removed {robot_name} from {service_name}.'
 
@@ -74,23 +76,7 @@ class RobotsManagingApp:
         service = [s for s in self.services if s.name == service_name][0]
         total_price = sum([r.price for r in service.robots])
 
-        return f'The value of service {service_name} is {total_price}.'
+        return f'The value of service {service_name} is {total_price:.2f}.'
 
     def __str__(self):
-        for s in self.services:
-            res = []
-            res.append(s)
-        return '\n'.join(i.details() for i in res)
-
-main_app = RobotsManagingApp()
-print(main_app.add_service('SecondaryService', 'ServiceRobotsWorld'))
-print(main_app.add_service('MainService', 'ServiceTechnicalsWorld'))
-print(main_app.add_robot('FemaleRobot', 'Scrap', 'HouseholdRobots', 321.26))
-print(main_app.add_robot('FemaleRobot', 'Sparkle', 'FunnyRobots', 211.11))
-print(main_app.add_robot_to_service('Scrap', 'ServiceRobotsWorld'))
-print(main_app.add_robot_to_service('Sparkle', 'ServiceRobotsWorld'))
-print(main_app.feed_all_robots_from_service('ServiceRobotsWorld'))
-print(main_app.feed_all_robots_from_service('ServiceTechnicalsWorld'))
-print(main_app.service_price('ServiceRobotsWorld'))
-print(main_app.service_price('ServiceTechnicalsWorld'))
-print(str(main_app))
+        return '\n'.join([s.details() for s in self.services])
