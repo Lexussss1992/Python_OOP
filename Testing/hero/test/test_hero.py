@@ -49,12 +49,33 @@ class TestHero(TestCase):
         self.assertEqual('You cannot fight Pesho. He needs to rest', str(ex.exception))
 
     def test_if_self_hero_win(self):
-        self.hero.battle(Hero('Pesho', 1, 1, 1))
 
+        self.assertEqual(self.hero.battle(Hero('Pesho', 1, 1, 1)), 'You win')
         self.assertEqual(6, self.hero.level)
         self.assertEqual(9.5, self.hero.health)
         self.assertEqual(60.5, self.hero.damage)
-        self.assertTrue('You win', self.hero.battle(Hero('Pesho', 1, 1, 1)))
+
+    def test_if_self_hero_lose(self):
+
+        self.assertEqual(self.hero.battle(Hero('Pesho', 1, 300, 10)), 'You lose')
+        self.assertEqual(5, self.hero.level)
+        self.assertEqual(-4.5, self.hero.health)
+        self.assertEqual(55.5, self.hero.damage)
+
+    def test_if_draw(self):
+
+        self.assertEqual(self.hero.battle(Hero('Pesho', 5, 5.5, 55.5)), 'Draw')
+        self.assertEqual(5, self.hero.level)
+        self.assertEqual(-272.0, self.hero.health)
+        self.assertEqual(55.5, self.hero.damage)
+
+    def test_string(self):
+        result = str(self.hero)
+        expected = f"Hero {self.hero.username}: {self.hero.level} lvl\n" \
+                   f"Health: {self.hero.health}\n" \
+                   f"Damage: {self.hero.damage}\n"
+
+        self.assertEqual(expected, result)
 
 if __name__ == '__main__':
     main()
