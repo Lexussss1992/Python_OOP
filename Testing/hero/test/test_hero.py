@@ -22,28 +22,28 @@ class TestHero(TestCase):
 
     def test_if_self_health_hero_equal_to_zero(self):
         self.hero = Hero('Ivo', 5, 0, 55.5)
-        with self.assertRaises(Exception) as ex:
+        with self.assertRaises(ValueError) as ex:
             self.hero.battle(Hero('Pesho', 5, 5.5, 55.5))
 
         self.assertEqual('Your health is lower than or equal to 0. You need to rest', str(ex.exception))
 
     def test_if_self_health_hero_less_than_zero(self):
         self.hero = Hero('Ivo', 5, -1, 55.5)
-        with self.assertRaises(Exception) as ex:
+        with self.assertRaises(ValueError) as ex:
             self.hero.battle(Hero('Pesho', 5, 5.5, 55.5))
 
         self.assertEqual('Your health is lower than or equal to 0. You need to rest', str(ex.exception))
 
     def test_if_enemy_health_hero_less_than_zero(self):
         self.hero = Hero('Ivo', 5, 5.5, 55.5)
-        with self.assertRaises(Exception) as ex:
+        with self.assertRaises(ValueError) as ex:
             self.hero.battle(Hero('Pesho', 5, -1, 55.5))
 
         self.assertEqual('You cannot fight Pesho. He needs to rest', str(ex.exception))
 
     def test_if_enemy_health_hero_equal_to_zero(self):
         self.hero = Hero('Ivo', 5, 5.5, 55.5)
-        with self.assertRaises(Exception) as ex:
+        with self.assertRaises(ValueError) as ex:
             self.hero.battle(Hero('Pesho', 5, 0, 55.5))
 
         self.assertEqual('You cannot fight Pesho. He needs to rest', str(ex.exception))
@@ -62,12 +62,21 @@ class TestHero(TestCase):
         self.assertEqual(-4.5, self.hero.health)
         self.assertEqual(55.5, self.hero.damage)
 
-    def test_if_draw(self):
+    def test_if_draw_health_less_than_zero(self):
+        self.hero = Hero('Ivo', 5, 5.5, 55.5)
 
         self.assertEqual(self.hero.battle(Hero('Pesho', 5, 5.5, 55.5)), 'Draw')
         self.assertEqual(5, self.hero.level)
         self.assertEqual(-272.0, self.hero.health)
         self.assertEqual(55.5, self.hero.damage)
+
+    def test_if_draw_health_equal_to_zero(self):
+        self.hero = Hero('Ivo', 5, 5, 1)
+
+        self.assertEqual(self.hero.battle(Hero('Pesho', 5, 5, 1)), 'Draw')
+        self.assertEqual(5, self.hero.level)
+        self.assertEqual(0, self.hero.health)
+        self.assertEqual(1, self.hero.damage)
 
     def test_string(self):
         result = str(self.hero)
@@ -76,6 +85,7 @@ class TestHero(TestCase):
                    f"Damage: {self.hero.damage}\n"
 
         self.assertEqual(expected, result)
+
 
 if __name__ == '__main__':
     main()
