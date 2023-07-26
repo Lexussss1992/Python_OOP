@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 
 class Movie(ABC):
@@ -41,3 +41,8 @@ class Movie(ABC):
             raise ValueError('The owner must be an object of type User!')
         else:
             self.__owner = value
+
+    @staticmethod
+    @abstractmethod
+    def details():
+        pass
