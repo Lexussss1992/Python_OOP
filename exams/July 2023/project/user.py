@@ -51,7 +51,3 @@ class User:
                f"{', '.join(i for i in details_liked_movies_list)}\n"\
                f"Owned movies:\n"\
                f"{', '.join(i for i in details_owned_movies_list)}"
-
-
-u = User('Ivo', 31)
-print(u.__str__())
