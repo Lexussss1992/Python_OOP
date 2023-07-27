@@ -101,6 +101,10 @@ class MovieApp:
 
         return "\n".join(m.details() for m in self.movies_collection)
 
+    # def __str__(self):
+    #
+
+
 movie_app = MovieApp()
 print(movie_app.register_user('Martin', 24))
 user = movie_app.users_collection[0]
@@ -120,3 +124,4 @@ print(movie_app.delete_movie('Alexandra', movie2))
 movie2 = Fantasy('The Lord of the Rings', 2003, user2, 14)
 print(movie_app.upload_movie('Alexandra', movie2))
 print(movie_app.display_movies())
+print(movie_app)
