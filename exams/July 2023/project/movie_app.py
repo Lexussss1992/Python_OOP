@@ -27,9 +27,8 @@ class MovieApp:
 
         user = next(filter(lambda u: u.username == username, self.users_collection))
 
-        if user:
-            if user.username != movie.owner.username:
-                raise Exception(f'{username} is not the owner of the movie {movie.title}!')
+        if user.username != movie.owner.username:
+            raise Exception(f'{username} is not the owner of the movie {movie.title}!')
 
         if movie in self.movies_collection:
             raise Exception('Movie already added to the collection!')
@@ -37,6 +36,53 @@ class MovieApp:
         user.movies_owned.append(movie)
         self.movies_collection.append(movie)
         return f'{username} successfully added {movie.title} movie.'
+
+    def edit_movie(self, username: str, movie: Movie, **kwargs):
+        user = next(filter(lambda u: u.username == username, self.users_collection))
+
+        if movie not in self.movies_collection:
+            raise Exception(f'The movie {movie.title} is not uploaded!')
+
+        if user.username != movie.owner.username:
+            raise Exception(f'{username} is not the owner of the movie {movie.title}!')
+
+        for key, value in kwargs.items():
+            if key == 'title':
+                movie.title = value
+
+            if key == 'year':
+                movie.year = value
+
+            if key == 'age_restriction':
+                movie.age_restriction = value
+
+        return f'{username} successfully edited {movie.title} movie.'
+
+    def delete_movie(self, username: str, movie: Movie):
+        user = next(filter(lambda u: u.username == username, self.users_collection))
+
+        if movie not in self.movies_collection:
+            raise Exception(f'The movie {movie.title} is not uploaded!')
+
+        if user.username != movie.owner.username:
+            raise Exception(f'{username} is not the owner of the movie {movie.title}!')
+
+        self.movies_collection.remove(movie)
+        user.movies_owned.remove(movie)
+        return f'{username} successfully deleted {movie.title} movie.'
+
+    def like_movie(self, username: str, movie: Movie):
+        user = next(filter(lambda u: u.username == username, self.users_collection))
+
+        if user.username == movie.owner.username:
+            raise Exception(f'{username} is the owner of the movie {movie.title}!')
+
+        if movie in user.movies_liked:
+            raise Exception(f'{username} already liked the movie {movie.title}!')
+
+        movie.likes += 1
+        user.movies_liked.append(movie)
+        return f'{username} liked {movie.title} movie.'
 
 
 movie_app = MovieApp()
@@ -49,3 +95,6 @@ print(movie_app.register_user('Alexandra', 25))
 user2 = movie_app.users_collection[1]
 movie2 = Action('Free Guy', 2021, user2, 16)
 print(movie_app.upload_movie('Alexandra', movie2))
+print(movie_app.edit_movie('Alexandra', movie2, title="Free Guy 2"))
+print(movie_app.like_movie('Martin', movie2))
+print(movie_app.like_movie('Alexandra', movie))
