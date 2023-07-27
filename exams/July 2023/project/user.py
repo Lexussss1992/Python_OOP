@@ -48,6 +48,6 @@ class User:
 
         return f"Username: {self.username}, Age: {self.age}\n"\
                f"Liked movies:\n"\
-               f"{', '.join(i for i in details_liked_movies_list)}\n"\
+               f"{', '.join(i.title for i in details_liked_movies_list)}\n"\
                f"Owned movies:\n"\
-               f"{', '.join(i for i in details_owned_movies_list)}"
+               f"{', '.join(i.title for i in details_owned_movies_list)}"

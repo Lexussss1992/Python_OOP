@@ -1,4 +1,5 @@
 from project.movie_specification.action import Action
+from project.movie_specification.fantasy import Fantasy
 from project.movie_specification.movie import Movie
 from project.user import User
 
@@ -84,6 +85,21 @@ class MovieApp:
         user.movies_liked.append(movie)
         return f'{username} liked {movie.title} movie.'
 
+    def dislike_movie(self, username: str, movie: Movie):
+        user = next(filter(lambda u: u.username == username, self.users_collection))
+
+        if movie not in user.movies_liked:
+            raise Exception(f'{username} has not liked the movie {movie.title}!')
+
+        movie.likes -= 1
+        user.movies_liked.remove(movie)
+        return f'{username} disliked {movie.title} movie.'
+
+    def display_movies(self):
+        if not self.movies_collection:
+            return 'No movies found.'
+
+        return "\n".join(m.details() for m in self.movies_collection)
 
 movie_app = MovieApp()
 print(movie_app.register_user('Martin', 24))
@@ -98,3 +114,9 @@ print(movie_app.upload_movie('Alexandra', movie2))
 print(movie_app.edit_movie('Alexandra', movie2, title="Free Guy 2"))
 print(movie_app.like_movie('Martin', movie2))
 print(movie_app.like_movie('Alexandra', movie))
+print(movie_app.dislike_movie('Martin', movie2))
+print(movie_app.like_movie('Martin', movie2))
+print(movie_app.delete_movie('Alexandra', movie2))
+movie2 = Fantasy('The Lord of the Rings', 2003, user2, 14)
+print(movie_app.upload_movie('Alexandra', movie2))
+print(movie_app.display_movies())

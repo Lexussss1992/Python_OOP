@@ -18,6 +18,6 @@ class Thriller(Movie):
         self.__age_restriction = value
 
     def details(self):
-        return f'Thriller - Title: {self.title}, ' \
-               f'Year: {self.year}, Age restriction:{self.age_restriction}, ' \
-               f'Likes: {self.likes}, Owned by:{self.owner}'
+        return f'Thriller - Title:{self.title}, ' \
+               f'Year:{self.year}, Age restriction:{self.age_restriction}, ' \
+               f'Likes:{self.likes}, Owned by:{self.owner}'
