@@ -1,10 +1,9 @@
 from project.movie_specification.movie import Movie
-from project.user import User
 
 
 class Fantasy(Movie):
-    def __init__(self, title: str, year: int, owner: object, age_restriction: int):
-        super().__init__(title, year, owner, age_restriction=6)
+    def __init__(self, title: str, year: int, owner: object, age_restriction: int = 6):
+        super().__init__(title, year, owner, age_restriction)
         self.age_restriction = age_restriction
 
     @property
@@ -19,9 +18,6 @@ class Fantasy(Movie):
             self.__age_restriction = value
 
     def details(self):
-        return f"Fantasy - Title: {self.title}, Year: {self.year}, Age restriction: {self.age_restriction}, Likes: {self.likes}, Owned by: {self.owner}"
-
-
-u = User('Ivo', 31)
-f = Fantasy('LOTR', 2002, u, 10)
-print(f.details())
+        return f"Fantasy - Title: {self.title}, Year: {self.year}, " \
+               f"Age restriction: {self.age_restriction}, Likes: {self.likes}, " \
+               f"Owned by: {self.owner}"
