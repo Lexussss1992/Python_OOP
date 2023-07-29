@@ -1,6 +1,4 @@
 from project.movie_specification.movie import Movie
-from project.user import User
-
 
 class Thriller(Movie):
     def __init__(self, title: str, year: int, owner: object, age_restriction: int = 16):
@@ -20,4 +18,4 @@ class Thriller(Movie):
     def details(self):
         return f'Thriller - Title:{self.title}, ' \
                f'Year:{self.year}, Age restriction:{self.age_restriction}, ' \
-               f'Likes:{self.likes}, Owned by:{self.owner}'
+               f'Likes:{self.likes}, Owned by:{self.owner.username}'

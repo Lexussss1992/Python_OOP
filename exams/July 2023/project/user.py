@@ -38,16 +38,16 @@ class User:
             details_liked_movies_list.append('No movies liked.')
         else:
             for m in self.movies_liked:
-                details_liked_movies_list.append(m)
+                details_liked_movies_list.append(m.details())
 
         if len(self.movies_owned) == 0:
             details_owned_movies_list.append('No movies owned.')
         else:
             for m in self.movies_owned:
-                details_owned_movies_list.append(m)
+                details_owned_movies_list.append(m.details())
 
         return f"Username: {self.username}, Age: {self.age}\n"\
                f"Liked movies:\n"\
-               f"{', '.join(i.title for i in details_liked_movies_list)}\n"\
+               f"{', '.join(i for i in details_liked_movies_list)}\n"\
                f"Owned movies:\n"\
-               f"{', '.join(i.title for i in details_owned_movies_list)}"
+               f"{', '.join(i for i in details_owned_movies_list)}"

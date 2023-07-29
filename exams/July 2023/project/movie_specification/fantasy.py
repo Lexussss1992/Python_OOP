@@ -20,4 +20,4 @@ class Fantasy(Movie):
     def details(self):
         return f"Fantasy - Title:{self.title}, Year:{self.year}, " \
                f"Age restriction:{self.age_restriction}, Likes:{self.likes}, " \
-               f"Owned by:{self.owner}"
+               f"Owned by:{self.owner.username}"
