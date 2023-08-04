@@ -6,7 +6,7 @@ class Appaloosa(Horse):
         super().__init__(name, speed)
 
     def train(self):
-        if self.speed + 2 > 120:
+        if self.speed + 2 >= 120:
             self.speed = 120
         else:
             self.speed += 2

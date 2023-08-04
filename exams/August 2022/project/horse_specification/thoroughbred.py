@@ -6,7 +6,7 @@ class Thoroughbred(Horse):
         super().__init__(name, speed)
 
     def train(self):
-        if self.speed + 3 > 140:
+        if self.speed + 3 >= 140:
             self.speed = 140
         else:
             self.speed += 3
