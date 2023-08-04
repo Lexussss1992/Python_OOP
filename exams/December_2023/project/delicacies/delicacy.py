@@ -13,7 +13,7 @@ class Delicacy(ABC):
 
     @name.setter
     def name(self, value):
-        if value.strip() == '' or value is None:
+        if value.strip() == '':
             raise ValueError('Name cannot be null or whitespace!')
         self.__name = value
 
