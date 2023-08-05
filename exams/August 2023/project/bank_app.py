@@ -29,7 +29,7 @@ class BankApp:
         if loan_type not in self.VALID_LOANS:
             raise Exception('Invalid loan type!')
 
-        self.loans.append(self.VALID_LOANS[loan_type])
+        self.loans.append(self.VALID_LOANS[loan_type]())
         return f'{loan_type} was successfully added.'
 
     def add_client(self, client_type: str, client_name: str, client_id: str, income: float):
@@ -47,7 +47,7 @@ class BankApp:
     def grant_loan(self, loan_type: str, client_id: str):
 
         client = [c for c in self.clients if c.client_id == client_id][0]
-        loan = [l for l in self.loans if l.__name__ == loan_type][0]
+        loan = [l for l in self.loans if l.__class__.__name__  == loan_type][0]
 
         if loan_type != 'StudentLoan' and client.__class__.__name__ == 'Student':
             raise Exception('Inappropriate loan type!')
@@ -79,7 +79,7 @@ class BankApp:
         number_of_changed_loans = 0
 
         for loan in self.loans:
-            if loan.__name__ == loan_type:
+            if loan.__class__.__name__ == loan_type:
                 for c in self.clients:
                     if loan not in c.loans:
                         loan.increase_interest_rate
@@ -108,8 +108,9 @@ class BankApp:
         for client in self.clients:
             total_clients_income += client.income
             loans_count_granted_to_clients += len(client.loans)
-            granted_sum += client.loans.amount
-            sum_client_interest_rate += client.interest
+            for loan in client.loans:
+                granted_sum += loan.amount
+                sum_client_interest_rate += client.interest
 
         for loan in self.loans:
             not_granted_sum += loan.amount
@@ -132,6 +133,8 @@ class BankApp:
               f"Granted Loans: {loans_count_granted_to_clients}, Total Sum: {granted_sum}\n" \
               f"Available Loans: {loans_count_not_granted}, Total Sum: {not_granted_sum}\n" \
               f"Average Client Interest Rate: {avg_client_interest_rate}"
+
+        return res
 
 
 bank = BankApp(3)
